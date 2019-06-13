@@ -8,7 +8,7 @@
   integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
   crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
-    <title>Document</title>
+    <title>Blackjack Card Game</title>
 </head>
 <body>
     <header>
@@ -18,27 +18,34 @@
     </header>
     
     <main>
-        <div>
-            <div>Dealer Score    <span>0</span></div>
-            <img src = "JPEG/Red_back.jpg">
-            <img src = "JPEG/Red_back.jpg">
-        </div>
+        <div>Dealer Score    <span>0</span></div>
+            <div class = "dealer">
+                <div id = "dealerCard-1"></div>
+                <div id = "dealerCard-2"></div>
+                <div id = "dealerCard-3"></div>
+                <div id = "dealerCard-4"></div>
+                <div id = "dealerCard-5"></div>
+            </div>
 
         <div>
             <div><p>Congragulation! Player Win</p></div>
             <div><p>Better Luck Next Time! Dealer Win</p></div>
         </div>
 
-        <div>
-            <div>Player Score   <span>0</span></div>
-            <img src = "JPEG/Red_back.jpg">
-            <img src = "JPEG/Red_back.jpg">
-        </div>
+        <div>Player Score   <span>0</span></div>
+            <div class = "player">
+                <div id = "playerCard-1"></div>
+                <div id = "playerCard-2"></div>
+                <div id = "playerCard-3"></div>
+                <div id = "playerCard-4"></div>
+                <div id = "playerCard-5"></div>
+            </div>
+        
 
         <div>
-            <button>Deal</button>
-            <button>Hit</button>
-            <button>Stand</button>
+            <button class = "dealBtn">Deal</button>
+            <button class = "hitBtn">Hit</button>
+            <button class = "standBtn">Stand</button>
         </div>
     </main>
 
@@ -46,6 +53,6 @@
 
 
 
-    <script defer src="app.js"></script>
+    <script defer src="main.js"></script>
 </body>
 </html>

@@ -6,3 +6,24 @@ img {
     width: 130px;
     height: 200px;
 }
+
+.dealer {
+    display: flex;
+    flex-direction: row;
+    margin: 0 5px;
+}
+
+#dealerCard-1, #dealerCard-2, #dealerCard-3, #dealerCard4, #dealerCard-5 {
+    margin: 0 5px;
+}
+
+.player {
+    display: flex;
+    flex-direction: row;
+    margin: 0 5px;
+}
+
+#playerCard-1, #playerCard-2, #playerCard-3, #playerCard4, #playerCard-5 {
+    margin: 0 5px;
+}
+
