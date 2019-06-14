@@ -1,5 +1,6 @@
 $(document).ready(function () {
-    
+
+
     let deck = [];
     let value = 0
     for (let i = 0; i < 52; i++) {
@@ -27,6 +28,11 @@ $(document).ready(function () {
         deck.push({ value: value, cardImg: "images/" + i + ".jpg" });
     };
 
+    // function createNewDeck() {
+    //     deck = [];
+    //     shuffleDeck(deck);
+    // }
+
     function shuffleDeck(deck) {
         let i = 0;
         let randomIndex = 0;
@@ -47,6 +53,7 @@ $(document).ready(function () {
     let playerTotalScore = 0;
 
     function deal() {
+        // createNewDeck();
         shuffleDeck(deck);
     };
 
@@ -55,6 +62,7 @@ $(document).ready(function () {
         evt.preventDefault();
         dealerCardDealt();
         playerCardDealt();
+        
         console.log(deck.length);
         console.log(dealerHand.length);
         console.log(playerHand.length);
@@ -62,6 +70,7 @@ $(document).ready(function () {
 
     $('.hitBtn').on('click', function(evt) {
         playerHit();
+        compareScore();
         console.log(dealerHand.length);
         console.log(playerHand.length);
     });
@@ -125,17 +134,14 @@ $(document).ready(function () {
     }
 
     function compareScore() {
-        if (playerTotalScore > dealerTotalScore) {
-            $('.popup').append('<p>Congragulation! You Win!!!<br>Press DEAL to start a new game</p>')
-        }
-
-    }
-
-    function checkPlayerScore() {
         if (playerTotalScore > 21) {
-
+            $('.popup').append('<p>Better Luck Next Time! Dealer Win<br>Press DEAL to start a new game</p>');
+        } else if (playerTotalScore <= 21 && playerTotalScore > dealerTotalScore) {
+            $('.popup').append('<p>Congragulation! You Win!!!<br>Press DEAL to start a new game</p>');
         }
-    }
+    };
+
+    
 
 
 
