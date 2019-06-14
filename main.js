@@ -31,8 +31,6 @@ $(document).ready(function () {
         }
         deck.push({ value: value, cardImg: "images/" + i + ".jpg" });
     };
-    console.log(deck);
-    console.log(deck[Math.floor(Math.random() * deck.length)].value);
 
     function shuffleDeck(deck) {
         let i = 0;
@@ -49,46 +47,58 @@ $(document).ready(function () {
 
     function deal() {
         shuffleDeck(deck);
-    }
+    };
+
     $('.dealBtn').on('click', function (evt) {
         deal();
         evt.preventDefault();
-
-        let dealerFirstCard = deck[Math.floor(Math.random() * deck.length)];
-        $('#dealerCard-1').append("<div><img src = '" + dealerFirstCard.cardImg + "' /></div>");
-        dealerFirstCardScore = dealerFirstCard.value;
-                console.log(dealerFirstCardScore);
-        
-        let dealerSecondCard = deck[Math.floor(Math.random() * deck.length)];
-        $('#dealerCard-2').append("<div><img src = '" + dealerSecondCard.cardImg + "' /></div>");
-        dealerSecondCardScore = dealerSecondCard.value;
-                console.log(dealerSecondCardScore);
-        
-        dealerTotalScore = dealerFirstCardScore + dealerSecondCardScore;
-                console.log(dealerTotalScore);
-        $('.dealerScore').append("<span> " + dealerTotalScore + "</span>");
+        dealerCardDealt();
+        playerCardDealt();
+        console.log(deck.length);
     });
 
+    function dealerCardDealt() {
+        let dealerFirstCard = deck[Math.floor(Math.random() * deck.length)];
+            $('#dealerCard-1').append("<div><img src = '" + dealerFirstCard.cardImg + "' /></div>");
+                let dealerFirstCardScore = dealerFirstCard.value;
+                deck.pop(dealerFirstCard);
+                dealerHand.push(dealerFirstCard);
+                // console.log(dealerFirstCardScore);
+        
+        let dealerSecondCard = deck[Math.floor(Math.random() * deck.length)];
+            $('#dealerCard-2').append("<div><img src = '" + dealerSecondCard.cardImg + "' /></div>");
+                let dealerSecondCardScore = dealerSecondCard.value;
+                deck.pop(dealerSecondCard);
+                dealerHand.push(dealerSecondCard);
+                // console.log(dealerSecondCardScore);
+        
+        let dealerTotalScore = dealerFirstCardScore + dealerSecondCardScore;
+                // console.log(dealerTotalScore);
+        $('.dealerScore').append("<span> " + dealerTotalScore + "</span>");
+    };
 
-function newDeck() {
-    deck.pop(2);
-    deck.pop(1);
-    deck.pop(0);
-    // console.log(deck.length);
-};
+    function playerCardDealt() {
+        let playerFirstCard = deck[Math.floor(Math.random() * deck.length)];
+            $('#playerCard-1').append("<div><img src = '" + playerFirstCard.cardImg + "' /></div>");
+                let playerFirstCardScore = playerFirstCard.value;
+                deck.pop(playerFirstCard);
+                playerHand.push(playerFirstCard);
+                console.log(playerFirstCardScore);
+            
+        let playerSecondCard = deck[Math.floor(Math.random() * deck.length)];
+            $('#playerCard-2').append("<div><img src = '" + playerSecondCard.cardImg + "' /></div>");
+                let playerSecondCardScore = playerSecondCard.value;
+                deck.pop(playerSecondCard);
+                playerHand.push(playerSecondCard);
+                console.log(playerSecondCardScore);
+        
+        let playerTotalScore = playerFirstCardScore + playerSecondCardScore;
+                console.log(playerTotalScore);
+        $('.playerScore').append("<span> " + playerTotalScore + "</span>");
+    }   
 
 
-$('.dealBtn').on('click', function (evt) {
-    shuffleDeck(deck);
-    evt.preventDefault();
-    // $('#dealerCard-1').append("<div><img src = '" + deck[Math.floor(Math.random() * deck.length)].cardImg + "' /></div>");
-    //                         //  ('<img src = "images/Red_back.jpg">');                                                                                                  
-    // $('#dealerCard-2').append("<div><img src = '" + deck[Math.floor(Math.random() * deck.length)].cardImg + "' /></div>");
-    $('#playerCard-1').append("<div><img src = '" + deck[Math.floor(Math.random() * deck.length)].cardImg + "' /></div>");
-    $('#playerCard-2').append("<div><img src = '" + deck[Math.floor(Math.random() * deck.length)].cardImg + "' /></div>");
 
-    newDeck();
-});
 
 
 
