@@ -53,7 +53,6 @@ $(document).ready(function () {
     let playerTotalScore = 0;
 
     function deal() {
-        // createNewDeck();
         shuffleDeck(deck);
     };
 
@@ -70,9 +69,13 @@ $(document).ready(function () {
 
     $('.hitBtn').on('click', function(evt) {
         playerHit();
-        compareScore();
+        checkPlayerScore();
         console.log(dealerHand.length);
         console.log(playerHand.length);
+    });
+
+    $('.standBtn').on('click', function(evt) {
+        compareScore();
     });
 
     console.log(dealerHand.length);
@@ -131,21 +134,21 @@ $(document).ready(function () {
             playerTotalScore = playerTotalScore + playerHitCardScore;
             console.log(playerTotalScore);
             $('#scorePly').text(" " + playerTotalScore + " ");
-    }
+    };
 
-    function compareScore() {
+    function checkPlayerScore() {
         if (playerTotalScore > 21) {
             $('.popup').append('<p>Better Luck Next Time! Dealer Win<br>Press DEAL to start a new game</p>');
-        } else if (playerTotalScore <= 21 && playerTotalScore > dealerTotalScore) {
+        }
+    };    
+
+    function compareScore() { 
+        if (playerTotalScore > dealerTotalScore) {
             $('.popup').append('<p>Congragulation! You Win!!!<br>Press DEAL to start a new game</p>');
         }
     };
 
     
-
-
-
-
 
 
 
