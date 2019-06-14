@@ -5,6 +5,7 @@ body {
 img {
     width: 110x;
     height: 130px;
+    margin-right: 15px;
 }
 
 .dealer {
@@ -17,10 +18,8 @@ img {
     margin: 0 5px;
 }
 
-.player {
-    display: flex;
-    flex-direction: row;
-    margin: 0 5px;
+.playercard {
+    display: inline-block;
 }
 
 #playerCard-1, #playerCard-2, #playerCard-3, #playerCard4, #playerCard-5 {

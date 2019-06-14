@@ -28,11 +28,6 @@ $(document).ready(function () {
         deck.push({ value: value, cardImg: "images/" + i + ".jpg" });
     };
 
-    // function createNewDeck() {
-    //     deck = [];
-    //     shuffleDeck(deck);
-    // }
-
     function shuffleDeck(deck) {
         let i = 0;
         let randomIndex = 0;
@@ -46,52 +41,45 @@ $(document).ready(function () {
         }
     };
 
+    function createNewDeck() {
+        let newdeck = deck;
+        shuffleDeck(newdeck);
+    }
+
     let dealerHand = [];
     let playerHand = [];
     
     let dealerTotalScore = 0;
     let playerTotalScore = 0;
 
-    function deal() {
-        shuffleDeck(deck);
-    };
-
     $('.dealBtn').on('click', function(evt) {
-        deal();
         evt.preventDefault();
+        
         dealerCardDealt();
         playerCardDealt();
-        
-        console.log(deck.length);
-        console.log(dealerHand.length);
-        console.log(playerHand.length);
+        createNewDeck();
     });
 
     $('.hitBtn').on('click', function(evt) {
         playerHit();
         checkPlayerScore();
-        console.log(dealerHand.length);
-        console.log(playerHand.length);
     });
 
     $('.standBtn').on('click', function(evt) {
+        dealerDraw();
         compareScore();
     });
 
-    console.log(dealerHand.length);
-    console.log(playerHand.length);
-
-
     function dealerCardDealt() {
         let dealerFirstCard = deck[Math.floor(Math.random() * deck.length)];
-            $('#dealerCard-1').append("<div><img src = '" + dealerFirstCard.cardImg + "' /></div>");
+            $('.dealerCard').append("<img src = '" + dealerFirstCard.cardImg + "' />");
                 let dealerFirstCardScore = dealerFirstCard.value;
                 deck.pop(dealerFirstCard);
                 dealerHand.push(dealerFirstCard);
                 // console.log(dealerFirstCardScore);
         
         let dealerSecondCard = deck[Math.floor(Math.random() * deck.length)];
-            $('#dealerCard-2').append("<div><img src = '" + dealerSecondCard.cardImg + "' /></div>");
+            $('.dealerCard').append("<img src = '" + dealerSecondCard.cardImg + "' />");
                 let dealerSecondCardScore = dealerSecondCard.value;
                 deck.pop(dealerSecondCard);
                 dealerHand.push(dealerSecondCard);
@@ -99,42 +87,42 @@ $(document).ready(function () {
         
         dealerTotalScore = dealerFirstCardScore + dealerSecondCardScore;
                 // console.log(dealerTotalScore);
-        $('.dealerScore').append("<span> " + dealerTotalScore + "</span>");
+        $('.dealerScore').append("<span id = 'scoreDlr'> " + dealerTotalScore + "</span>");
     };
 
     function playerCardDealt() {
         let playerFirstCard = deck[Math.floor(Math.random() * deck.length)];
-            $('#playerCard-1').append("<div><img src = '" + playerFirstCard.cardImg + "' /></div>");
+            $('.playerCard').append("<img src = '" + playerFirstCard.cardImg + "' />");
                 let playerFirstCardScore = playerFirstCard.value;
                 deck.pop(playerFirstCard);
                 playerHand.push(playerFirstCard);
-                // console.log(playerFirstCardScore);
             
         let playerSecondCard = deck[Math.floor(Math.random() * deck.length)];
-            $('#playerCard-2').append("<div><img src = '" + playerSecondCard.cardImg + "' /></div>");
+            $('.playerCard').append("<img src = '" + playerSecondCard.cardImg + "' />");
                 let playerSecondCardScore = playerSecondCard.value;
                 deck.pop(playerSecondCard);
                 playerHand.push(playerSecondCard);
-                // console.log(playerSecondCardScore);
         
         playerTotalScore = playerFirstCardScore + playerSecondCardScore;
-                // console.log(playerTotalScore);
         $('.playerScore').append("<span id = 'scorePly'> " + playerTotalScore + "</span>");
-
     }   
 
     function playerHit() {
         let playerHitCard = deck[Math.floor(Math.random() * deck.length)];
-            $('#playerCard-3').append("<div><img src = '" + playerHitCard.cardImg + "' /></div>");
+            $('.playerCard').append("<img src = '" + playerHitCard.cardImg + "' />");
             let playerHitCardScore = playerHitCard.value;
             deck.pop(playerHitCard);
             playerHand.push(playerHitCard);
-            console.log(playerHitCardScore);
 
             playerTotalScore = playerTotalScore + playerHitCardScore;
-            console.log(playerTotalScore);
             $('#scorePly').text(" " + playerTotalScore + " ");
     };
+
+    function checkDealerScore() {
+        if (dealerTotalScore > 21) {
+            $('.popup').append('<p>Congragulation! You Win!!!<br>Press DEAL to start a new game</p>');
+        }
+    }
 
     function checkPlayerScore() {
         if (playerTotalScore > 21) {
@@ -143,12 +131,29 @@ $(document).ready(function () {
     };    
 
     function compareScore() { 
-        if (playerTotalScore > dealerTotalScore) {
+        if (playerTotalScore > dealerTotalScore && playerTotalScore < 21) {
             $('.popup').append('<p>Congragulation! You Win!!!<br>Press DEAL to start a new game</p>');
+        } else if (dealerTotalScore > playerTotalScore && dealerTotalScore < 21) {
+            $('.popup').append('<p>Better Luck Next Time! Dealer Win<br>Press DEAL to start a new game</p>');
         }
     };
 
-    
+    function dealerDraw() {
+        for (let i = 0; i < 3; i++) {
+            if (dealerTotalScore < 17) {
+                dealerDrawCard = deck[Math.floor(Math.random() * deck.length)];
+                    $('.dealerCard').append("<img src = '" + dealerDrawCard.cardImg + "' />");
+                let dealerDrawCardScore = dealerDrawCard.value;
+                deck.pop(dealerDrawCard);
+                playerHand.push(dealerDrawCard);
+
+                dealerTotalScore = dealerTotalScore + dealerDrawCardScore;
+                // console.log(dealerTotalScore);
+                $('#scoreDlr').text(" " + dealerTotalScore + " ");
+            }
+        }
+        checkDealerScore();
+    }
 
 
 
