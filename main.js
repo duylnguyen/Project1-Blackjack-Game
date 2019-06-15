@@ -100,7 +100,7 @@ $(document).ready(function () {
     }
 
     function playerCardDealt() {
-        let card = deck[Math.floor(Math.random() * deck.length)]
+            card = deck[Math.floor(Math.random() * deck.length)]
             deck.pop(card);
             playerHand.push(card);
             $('.playerCard').append("<img src = '" + card.cardImg + "' />");    
@@ -112,6 +112,7 @@ $(document).ready(function () {
 
     function addPlayerScore() {
         playerTotalScore = playerTotalScore + card.value;
+        console.log(playerTotalScore);
     }
 
     function dealerTotalScoreDisplay() {
@@ -123,11 +124,10 @@ $(document).ready(function () {
     }
 
     function dealerCard() {
-        for (let i = 0; i < 2; i++) {
+        $('.dealerCard').append("<img src = 'images/blue_back.jpg' />");
             dealerCardDealt();
             addDealerScore();
-        }
-        dealerTotalScoreDisplay();
+            dealerTotalScoreDisplay();
     }
 
     function playerCard() {
