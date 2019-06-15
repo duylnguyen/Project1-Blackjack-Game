@@ -8,10 +8,8 @@ img {
     margin-right: 15px;
 }
 
-.dealer {
-    display: flex;
-    flex-direction: row;
-    margin: 0 5px;
+.dealerCard {
+    display: inline-block;
 }
 
 #dealerCard-1, #dealerCard-2, #dealerCard-3, #dealerCard4, #dealerCard-5 {
