@@ -35,8 +35,10 @@ $(document).ready(function () {
     
     };
 
+    shuffleNewDeck();
+
     // Shuffle Deck
-    function shuffleDeck(deck) {
+    function shuffleNewDeck() {
         let i = 0;
         let randomIndex = 0;
         let temporaryValue = null;
@@ -51,10 +53,10 @@ $(document).ready(function () {
     
     $('.dealBtn').on('click', function(evt) {
         evt.preventDefault();
-        
+        resetGame();
         dealerCard();
         playerCard();
-        // shuffleDeck();
+        
     });
 
     $('.hitBtn').on('click', function(evt) {
@@ -64,7 +66,6 @@ $(document).ready(function () {
 
     $('.standBtn').on('click', function(evt) {
         openDealerCard();
-        // aceValue();
         dealerDraw();
         compareScore();
     });
@@ -112,9 +113,9 @@ $(document).ready(function () {
 
     function dealerAceValue() {
         for (let i = 0; i < dealerHand.length; i++) {
-            if (dealerHand[i].value === 11 && dealerTotalScore > 21) {
+            if (dealerHand[i].value === 11 && dealerTotalScore > 11) {
                 dealerTotalScore -= 10;
-            } else if (dealerHand[i] === 11 && dealerTotalScore < 21) {
+            } else if (dealerHand[i] === 11 && dealerTotalScore < 11) {
                 return dealerTotalScore;
                 
             }
@@ -123,9 +124,9 @@ $(document).ready(function () {
 
     function playerAceValue() {
         for (let i = 0; i < playerHand.length; i++) {
-            if (playerHand[i].value === 11 && playerTotalScore > 21) {
+            if (playerHand[i].value === 11 && playerTotalScore > 11) {
                 playerTotalScore -= 10;
-            } else if (dealerHand[i] === 11 && playerTotalScore < 21) {
+            } else if (dealerHand[i] === 11 && playerTotalScore < 11) {
                 return playerTotalScore;
             }
         } 
@@ -191,6 +192,22 @@ $(document).ready(function () {
             }
         }
         checkDealerScore();
+    }
+
+    function resetGame() {
+        $('.dealerCard').empty();
+        $('.playerCard').empty();
+        $('.dealerScore').empty();
+        $('.playerScore').empty();
+        dealerTotalScore = 0;
+        playerTotalScore = 0;
+        dealerHand = [];
+        playerHand = [];
+        newdeck = deck;
+        shuffleNewDeck();
+        $('#scoreDlr').empty();
+        $('#scorePly').empty();
+        $('.popup').empty();
     }
     
     // function playerCardDealt() {
