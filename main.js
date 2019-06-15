@@ -98,8 +98,7 @@ $(document).ready(function () {
     function dealerCardDealt() {
             card = deck[Math.floor(Math.random() * deck.length)]
             deck.pop(card);
-            dealerHand.push(card);
-            // dealerAceValue();   
+            dealerHand.push(card);  
             $('.dealerCard').append("<img src = '" + card.cardImg + "' />");
     };
 
@@ -107,13 +106,12 @@ $(document).ready(function () {
             card = deck[Math.floor(Math.random() * deck.length)]
             deck.pop(card);
             playerHand.push(card);
-            
             $('.playerCard').append("<img src = '" + card.cardImg + "' />");    
     };
 
     function dealerAceValue() {
         for (let i = 0; i < dealerHand.length; i++) {
-            if (dealerHand[i].value === 11 && dealerTotalScore > 11) {
+            if (dealerHand[i].value === 11 && dealerTotalScore >= 11) {
                 dealerTotalScore -= 10;
             } else if (dealerHand[i] === 11 && dealerTotalScore < 11) {
                 return dealerTotalScore;
@@ -124,7 +122,7 @@ $(document).ready(function () {
 
     function playerAceValue() {
         for (let i = 0; i < playerHand.length; i++) {
-            if (playerHand[i].value === 11 && playerTotalScore > 11) {
+            if (playerHand[i].value === 11 && playerTotalScore >= 11) {
                 playerTotalScore -= 10;
             } else if (dealerHand[i] === 11 && playerTotalScore < 11) {
                 return playerTotalScore;
@@ -197,8 +195,8 @@ $(document).ready(function () {
     function resetGame() {
         $('.dealerCard').empty();
         $('.playerCard').empty();
-        $('.dealerScore').empty();
-        $('.playerScore').empty();
+        $('.dealerScore span').empty();
+        $('.playerScore span').empty();
         dealerTotalScore = 0;
         playerTotalScore = 0;
         dealerHand = [];
