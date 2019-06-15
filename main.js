@@ -56,10 +56,6 @@ $(document).ready(function () {
         playerCard();
         // playerCardDealt();
         // createNewDeck();
-        console.log(dealerHand.length);
-        console.log(playerHand.length);
-        console.log(dealerHand[0]);
-        console.log(dealerHand[1]);
     });
 
     // $('.hitBtn').on('click', function(evt) {
@@ -95,10 +91,10 @@ $(document).ready(function () {
     
             // dealerTotalScore = dealerTotalScore + card.value;
             // $('.dealerScore').append("<span id = 'scoreDlr'> " + dealerTotalScore + "</span>");
-                
+    let card;                
 
     function dealerCardDealt() {
-        let card = deck[Math.floor(Math.random() * deck.length)]
+            card = deck[Math.floor(Math.random() * deck.length)]
             deck.pop(card);
             dealerHand.push(card);   
             $('.dealerCard').append("<img src = '" + card.cardImg + "' />");
@@ -108,13 +104,26 @@ $(document).ready(function () {
         let card = deck[Math.floor(Math.random() * deck.length)]
             deck.pop(card);
             playerHand.push(card);
-            $('.playerCard').append("<img src = '" + card.cardImg + "' />");   
+            $('.playerCard').append("<img src = '" + card.cardImg + "' />");
+            playerTotalScore = playerTotalScore + card.value;   
     }
+
+    function addScore() {
+        dealerTotalScore = dealerTotalScore + card.value;
+    }
+
+    function dealerTotalScoreDisplay() {
+        $('.dealerScore').append("<span id = 'scoreDlr'> " + dealerTotalScore + "</span>");
+    }
+
+    
 
     function dealerCard() {
         for (let i = 0; i < 2; i++) {
             dealerCardDealt();
+            addScore();
         }
+        dealerTotalScoreDisplay();
     }
 
     function playerCard() {
