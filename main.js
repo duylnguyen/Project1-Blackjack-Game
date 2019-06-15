@@ -54,13 +54,12 @@ $(document).ready(function () {
         
         dealerCard();
         playerCard();
-        // createNewDeck();
     });
 
-    // $('.hitBtn').on('click', function(evt) {
-    //     playerHit();
-    //     checkPlayerScore();
-    // });
+    $('.hitBtn').on('click', function(evt) {
+        playerHit();
+        // checkPlayerScore();
+    });
 
     // $('.standBtn').on('click', function(evt) {
     //     dealerDraw();
@@ -120,7 +119,7 @@ $(document).ready(function () {
     }
 
     function playerTotalScoreDisplay() {
-        $('.playerScore').append("<span id = 'scoreDlr'> " + playerTotalScore + "</span>");
+        $('.playerScore').append("<span id = 'scorePly'> " + playerTotalScore + "</span>");
     }
 
     function dealerCard() {
@@ -137,6 +136,12 @@ $(document).ready(function () {
         }
         playerTotalScoreDisplay();
     }
+
+    function playerHit() {
+        playerCardDealt();
+        addPlayerScore();    
+        $('#scorePly').text(" " + playerTotalScore + " ");
+    };
     
     // function playerCardDealt() {
     //     let playerFirstCard = deck[Math.floor(Math.random() * deck.length)];
