@@ -61,10 +61,11 @@ $(document).ready(function () {
         // checkPlayerScore();
     });
 
-    // $('.standBtn').on('click', function(evt) {
-    //     dealerDraw();
-    //     compareScore();
-    // });
+    $('.standBtn').on('click', function(evt) {
+        openDealerCard();
+        // dealerDraw();
+        // compareScore();
+    });
 
     // function dealerCardDealt() {
     //     let dealerFirstCard = deck[Math.floor(Math.random() * deck.length)];
@@ -142,6 +143,28 @@ $(document).ready(function () {
         addPlayerScore();    
         $('#scorePly').text(" " + playerTotalScore + " ");
     };
+
+    function openDealerCard() {
+        card = deck[Math.floor(Math.random() * deck.length)]
+            deck.pop(card);
+            dealerHand.push(card);
+            addDealerScore()
+            $('img:first').replaceWith("<img src = '" + card.cardImg + "' />");
+            $('#scoreDlr').text(" " + dealerTotalScore + " ");
+    }
+
+    // function dealerDraw() {
+    //     for (let i = 0; i < 3; i++) {
+    //         if (dealerTotalScore < 17) {
+    //             dealerCardDealt();
+    //             addDealerScore();
+    //             $('#scoreDlr').text(" " + dealerTotalScore + " ");
+    //         } else if (dealerTotalScore > 17 && dealerTotalScore <= 21) {
+    //             compareScore();
+    //         }
+    //     }
+    //     checkDealerScore();
+    // }
     
     // function playerCardDealt() {
     //     let playerFirstCard = deck[Math.floor(Math.random() * deck.length)];
