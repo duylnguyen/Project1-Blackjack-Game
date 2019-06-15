@@ -62,7 +62,7 @@ $(document).ready(function () {
     $('.hitBtn').on('click', function(evt) {
         evt.preventDefault();
         playerHit();
-        // checkPlayerScore();
+        compareScore();
     });
 
     $('.standBtn').on('click', function(evt) {
@@ -115,23 +115,24 @@ $(document).ready(function () {
     function dealerAceValue() {
         for (let i = 0; i < dealerHand.length; i++) {
             if (dealerHand[i].value === 11 && dealerTotalScore > 11) {
-                dealerTotalScore -= 10;
+                return dealerTotalScore -= 10;
             } else if (dealerHand[i] === 11 && dealerTotalScore < 11) {
                 return dealerTotalScore;
-                
             }
         } 
     };
+    
 
     function playerAceValue() {
         for (let i = 0; i < playerHand.length; i++) {
             if (playerHand[i].value === 11 && playerTotalScore > 11) {
-                playerTotalScore -= 10;
-            } else if (dealerHand[i] === 11 && playerTotalScore < 11) {
+                return playerTotalScore -= 10;
+            } else if (playerHand[i] === 11 && playerTotalScore < 11) {
                 return playerTotalScore;
             }
         } 
     };
+    
 
     function addDealerScore() {
         dealerTotalScore = dealerTotalScore + card.value;    
@@ -166,8 +167,9 @@ $(document).ready(function () {
 
     function playerHit() {
             playerCardDealt();
-            playerAceValue();
-            addPlayerScore();    
+            
+            addPlayerScore();
+            playerAceValue();    
                 $('#scorePly').text(" " + playerTotalScore + " ");
     };
 
@@ -175,7 +177,6 @@ $(document).ready(function () {
         card = deck[Math.floor(Math.random() * deck.length)]
             deck.pop(card);
             dealerHand.push(card);
-            dealerAceValue();
             addDealerScore()
             $('img:first').replaceWith("<img src = '" + card.cardImg + "' />");
             $('#scoreDlr').text(" " + dealerTotalScore + " ");
@@ -198,7 +199,7 @@ $(document).ready(function () {
         if (playerTotalScore > 21) {
             $('.popup').append('<p>YOU ARE BUSTED!!! Better Luck Next Time! Dealer Win<br>Press DEAL to start a new game</p>');
         } 
-        else if (dealerTotalScore > 21 || playerTotalScore > dealerTotalScore) {
+        else if (dealerTotalScore > 21  || (playerTotalScore > dealerTotalScore && dealerTotalScore >= 17)) {
             $('.popup').append('<p>Congragulation! YOU WIN!!!<br>Press DEAL to start a new game</p>');
         }
         else if (playerTotalScore < dealerTotalScore) {
