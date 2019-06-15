@@ -53,7 +53,7 @@ $(document).ready(function () {
         evt.preventDefault();
         
         dealerCard();
-        // playerCardDealt();
+        playerCard();
         // playerCardDealt();
         // createNewDeck();
         console.log(dealerHand.length);
@@ -108,26 +108,20 @@ $(document).ready(function () {
         let card = deck[Math.floor(Math.random() * deck.length)]
             deck.pop(card);
             playerHand.push(card);
-               
+            $('.playerCard').append("<img src = '" + card.cardImg + "' />");   
     }
-
-    // function displayDealerCard() {
-    //     $('.dealerCard').append("<img src = '" + dealerHand[0].cardImg + "' />");
-    // }
 
     function dealerCard() {
         for (let i = 0; i < 2; i++) {
             dealerCardDealt();
-            // displayDealerCard();
         }
     }
 
-    // function playerCardDealt() {
-    //     for (let i = 0; i < 2; i++) {
-    //         dealCard();
-    //         // $('.playerCard').append("<img src = '" + Card.cardImg + "' />");
-    //     }
-    // }
+    function playerCard() {
+        for (let i = 0; i < 2; i++) {
+            playerCardDealt();
+        }
+    }
     
     // function playerCardDealt() {
     //     let playerFirstCard = deck[Math.floor(Math.random() * deck.length)];
