@@ -54,7 +54,6 @@ $(document).ready(function () {
         
         dealerCard();
         playerCard();
-        // playerCardDealt();
         // createNewDeck();
     });
 
@@ -104,24 +103,29 @@ $(document).ready(function () {
         let card = deck[Math.floor(Math.random() * deck.length)]
             deck.pop(card);
             playerHand.push(card);
-            $('.playerCard').append("<img src = '" + card.cardImg + "' />");
-            playerTotalScore = playerTotalScore + card.value;   
+            $('.playerCard').append("<img src = '" + card.cardImg + "' />");    
     }
 
-    function addScore() {
-        dealerTotalScore = dealerTotalScore + card.value;
+    function addDealerScore() {
+        dealerTotalScore = dealerTotalScore + card.value;    
+    }
+
+    function addPlayerScore() {
+        playerTotalScore = playerTotalScore + card.value;
     }
 
     function dealerTotalScoreDisplay() {
         $('.dealerScore').append("<span id = 'scoreDlr'> " + dealerTotalScore + "</span>");
     }
 
-    
+    function playerTotalScoreDisplay() {
+        $('.playerScore').append("<span id = 'scoreDlr'> " + playerTotalScore + "</span>");
+    }
 
     function dealerCard() {
         for (let i = 0; i < 2; i++) {
             dealerCardDealt();
-            addScore();
+            addDealerScore();
         }
         dealerTotalScoreDisplay();
     }
@@ -129,7 +133,9 @@ $(document).ready(function () {
     function playerCard() {
         for (let i = 0; i < 2; i++) {
             playerCardDealt();
+            addPlayerScore();
         }
+        playerTotalScoreDisplay();
     }
     
     // function playerCardDealt() {
