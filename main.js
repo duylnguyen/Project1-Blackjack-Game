@@ -59,9 +59,6 @@ $(document).ready(function () {
         shuffleDeck();
         dealerCard();
         playerCard();
-        console.log(deck.length);
-        console.log(dealerHand.length);
-        console.log(playerHand.length);
     });
 
     $('.hitBtn').on('click', function(evt) {
@@ -103,9 +100,6 @@ $(document).ready(function () {
     //     $('.dealerScore').append("<span id = 'scoreDlr'> " + dealerTotalScore + "</span>");
     // };
 
-    
-            // dealerTotalScore = dealerTotalScore + card.value;
-            // $('.dealerScore').append("<span id = 'scoreDlr'> " + dealerTotalScore + "</span>");
     let card;                
 
     function dealerCardDealt() {
@@ -126,10 +120,6 @@ $(document).ready(function () {
         for (let i = 0; i < dealerHand.length; i++) {
             if (dealerHand[i].value === 1 && dealerTotalScore + 10 < 21) {
                 return dealerTotalScore += 10;
-            // } else if (dealerHand[i] === 11 && dealerTotalScore < 11) {
-            //     return dealerTotalScore;
-            // } else if (dealerHand[i] === 11 && dealerTotalScore === 22) {
-            //     return dealerTotalScore = 12;
             } 
         } 
     };
@@ -138,21 +128,17 @@ $(document).ready(function () {
         for (let i = 0; i < playerHand.length; i++) {
             if (playerHand[i].value === 1 && playerTotalScore + 10 < 21) {
                 return playerTotalScore += 10;
-            // } else if (playerHand[i] === 11 && playerTotalScore < 11) {
-            //     return playerTotalScore;
-            // } else if (playerHand[i] === 11 && playerTotalScore === 22) {
-            //     return playerTotalScore = 12;
             }
         } 
     };
 
-    
-
     function addDealerScore() {
+        dealerAceValue();
         dealerTotalScore = dealerTotalScore + card.value;    
     }
 
     function addPlayerScore() {
+        playerAceValue();
         playerTotalScore = playerTotalScore + card.value;
     }
 
@@ -191,8 +177,8 @@ $(document).ready(function () {
         card = deck[Math.floor(Math.random() * deck.length)]
             deck.splice(card, 1);
             dealerHand.push(card);
-            dealerAceValue();
             addDealerScore()
+            dealerAceValue();
             $('img:first').replaceWith("<img src = '" + card.cardImg + "' />");
             // $('#scoreDlr').text(" " + dealerTotalScore + " ");
     };
@@ -202,8 +188,8 @@ $(document).ready(function () {
             
             if (dealerTotalScore < 17) {
                 dealerCardDealt();
-                dealerAceValue();
                 addDealerScore();
+                dealerAceValue();
                 // $('#scoreDlr').text(" " + dealerTotalScore + " ");
             } else if (dealerTotalScore >= 17) {
                 return dealerTotalScore;
