@@ -1,26 +1,105 @@
 body {
-    background-color: green;
+    background-color: whitesmoke;
 }
 
 img {
-    width: 110x;
-    height: 130px;
+    width: 1550x;
+    height: 160px;
     margin-right: 15px;
 }
 
+header {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+h1 {
+    margin: 20px;
+}
+
+#welcome {
+    text-align: center;
+    font-size: 45px;
+}
+
+.table {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    background-color: green;
+    height: 600px;
+    border-radius: 30%;
+    width: 1200px;
+    margin: 0 auto;
+}
+
+.container1 {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+
+.container2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 25px;
+}
+
+#note {
+    margin-top: 30px;
+}
+
+.popup {
+    text-align: center;
+    height: 40px;
+    margin-bottom: 50px;
+}
+
+.splitBox {
+    display: flex;
+    flex-direction: column;
+    margin-right: 20px;
+    width: 180px;
+    font-size: 25px;
+}
+
 .dealerCard {
-    display: inline-block;
+    width: 600px;
+    height: 160px;
+    margin-right: 20px;
+    border: solid 1px black;
 }
 
-#dealerCard-1, #dealerCard-2, #dealerCard-3, #dealerCard4, #dealerCard-5 {
-    margin: 0 5px;
+.playerCard {
+    width: 600px;
+    height: 160px;
+    border: solid 1px gray;
+    margin-right: 20px;
+    border: solid 1px black;
 }
 
-.playercard {
-    display: inline-block;
+.gameBtn {
+    text-align: center;
 }
 
-#playerCard-1, #playerCard-2, #playerCard-3, #playerCard4, #playerCard-5 {
-    margin: 0 5px;
+button {
+    margin-right: 15px;
+    height: 45px;
+    width: 120px;
+    font-size: 18px;
+    border-radius: 30%;
+    cursor: pointer;
 }
+
+span {
+    color: azure;
+    height: 20px;
+}
+
+
 

@@ -12,40 +12,43 @@
 </head>
 <body>
     <header>
-        <h1>Welcome to play Blackjack Game</h1>
-        <div>Player Win: <span>0</span></div>
-        <div>Dealer Win: <spanp>0</span></div>
+        <h1>Player Win: <span>0</span></h1>
+        <h1 id = "welcome">Blackjack Game</h1>
+        <h1>Dealer Win: <span>0</span></h1>
     </header>
-    
-    <table class = "table">
-        <main>
-            <div class = "contianer"></div>
+
+        <main class = "table">
+            <div class = "container1">
                 <div class = "splitBox">
                     <div class = "dealerScore">Dealer Score:</div>
-                    <div id = "note">Blackjack/Bust</div> 
+                    <div id = "note">Blackjack/Bust</div>
                 </div>
+                
                 <div class = "dealerCard"></div>
+            </div>
             
             <div class = "wrapper">
-                <div id = "popup"></div>
+                <div class = "popup"></div>
+                
             </div>
 
-            <div class = "container">
+            <div class = "container2">
                 <div class = "splitBox">
                     <div class = "playerScore">Player Score:</div>
                     <div id = "note">Blackjack/Bust</div>
                 </div>
+                
                 <div class = "playerCard"></div>
             </div>    
-        </main>
 
-        <div>
-            <button class = "dealBtn">Deal</button>
-            <button class = "hitBtn">Hit</button>
-            <button class = "standBtn">Stand</button>
-        </div>
+            <div class = "gameBtn">
+                <button class = "dealBtn">Deal</button>
+                <button class = "hitBtn">Hit</button>
+                <button class = "standBtn">Stand</button>
+            </div>
+        </main>
         
-    </table>
+    
     <script defer src="main.js"></script>
 </body>
 </html>
