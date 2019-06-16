@@ -17,34 +17,35 @@
         <div>Dealer Win: <spanp>0</span></div>
     </header>
     
-    <main>
-        <div class = "dealerScore">Dealer Score:</div> 
-            <div class = "dealerCard">
-                
+    <table class = "table">
+        <main>
+            <div class = "contianer"></div>
+                <div class = "splitBox">
+                    <div class = "dealerScore">Dealer Score:</div>
+                    <div id = "note">Blackjack/Bust</div> 
+                </div>
+                <div class = "dealerCard"></div>
+            
+            <div class = "wrapper">
+                <div id = "popup"></div>
             </div>
 
-        <div class = "popup">
-            
-            
-        </div>
-
-        <div class = "playerScore">Player Score:</div>
-            <div class = "playerCard">
-        
-            </div>
-        
+            <div class = "container">
+                <div class = "splitBox">
+                    <div class = "playerScore">Player Score:</div>
+                    <div id = "note">Blackjack/Bust</div>
+                </div>
+                <div class = "playerCard"></div>
+            </div>    
+        </main>
 
         <div>
             <button class = "dealBtn">Deal</button>
             <button class = "hitBtn">Hit</button>
             <button class = "standBtn">Stand</button>
         </div>
-    </main>
-
-
-
-
-
+        
+    </table>
     <script defer src="main.js"></script>
 </body>
 </html>

@@ -105,7 +105,8 @@ $(document).ready(function () {
     function dealerCardDealt() {
             card = deck[Math.floor(Math.random() * deck.length)]
             deck.splice(card, 1);
-            dealerHand.push(card);  
+            dealerHand.push(card);
+            dealerAceValue();  
             $('.dealerCard').append("<img src = '" + card.cardImg + "' />");
     };
 
@@ -113,33 +114,38 @@ $(document).ready(function () {
             card = deck[Math.floor(Math.random() * deck.length)]
             deck.splice(card, 1);
             playerHand.push(card);
+            playerAceValue();
             $('.playerCard').append("<img src = '" + card.cardImg + "' />");    
     };
 
     function dealerAceValue() {
         for (let i = 0; i < dealerHand.length; i++) {
-            if (dealerHand[i].value === 1 && dealerTotalScore + 10 < 21) {
+            if (dealerHand[i].value === 1 && dealerTotalScore + 10 < 11) {
                 return dealerTotalScore += 10;
-            } 
+            } else if (dealerHand[i].value === 1 && dealerTotalScore > 11) {
+                return dealerTotalScore += 0;
+            }
         } 
     };
 
     function playerAceValue() {
         for (let i = 0; i < playerHand.length; i++) {
-            if (playerHand[i].value === 1 && playerTotalScore + 10 < 21) {
+            if (playerHand[i].value === 1 && playerTotalScore + 10 < 11) {
                 return playerTotalScore += 10;
+            } else if (playerHand[i].value === 1 && playerTotalScore > 11) {
+                return playerTotalScore += 0;
             }
         } 
     };
 
     function addDealerScore() {
-        dealerAceValue();
         dealerTotalScore = dealerTotalScore + card.value;    
+        // dealerAceValue();
     }
 
     function addPlayerScore() {
-        playerAceValue();
         playerTotalScore = playerTotalScore + card.value;
+        // playerAceValue();
     }
 
     function dealerTotalScoreDisplay() {
@@ -154,6 +160,7 @@ $(document).ready(function () {
         $('.dealerCard').append("<img src = 'images/blue_back.jpg' />");
             dealerCardDealt();
             addDealerScore();
+            // dealerAceValue();
             // dealerTotalScoreDisplay();
     }
 
@@ -161,14 +168,15 @@ $(document).ready(function () {
         for (let i = 0; i < 2; i++) {
             playerCardDealt();
             addPlayerScore();
+            // playerAceValue();
         }
         // playerTotalScoreDisplay();
     }
 
     function playerHit() {
             playerCardDealt();
-            playerAceValue();
             addPlayerScore();
+            // playerAceValue();
             // compareScore();    
                 // $('#scorePly').text(" " + playerTotalScore + " ");
     };
@@ -178,7 +186,7 @@ $(document).ready(function () {
             deck.splice(card, 1);
             dealerHand.push(card);
             addDealerScore()
-            dealerAceValue();
+            // dealerAceValue();
             $('img:first').replaceWith("<img src = '" + card.cardImg + "' />");
             // $('#scoreDlr').text(" " + dealerTotalScore + " ");
     };
@@ -189,7 +197,7 @@ $(document).ready(function () {
             if (dealerTotalScore < 17) {
                 dealerCardDealt();
                 addDealerScore();
-                dealerAceValue();
+                // dealerAceValue();
                 // $('#scoreDlr').text(" " + dealerTotalScore + " ");
             } else if (dealerTotalScore >= 17) {
                 return dealerTotalScore;
