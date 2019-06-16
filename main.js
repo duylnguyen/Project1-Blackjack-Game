@@ -5,8 +5,6 @@ $(document).ready(function () {
     let dealerTotalScore = 0;
     let playerTotalScore = 0;
 
-    // let cards = ["A","2","3","4","5","6","7","8","9","10","J","Q","K"]
-
     // Set up deck of cards
     let deck = [];
     let value = 0;
@@ -15,7 +13,7 @@ $(document).ready(function () {
         
         for (let i = 0; i < 52; i++) {
             if (i < 4) {
-                value = 1
+                value = 11
             } else if (i < 8) {
                 value = 2
             } else if (i < 12) {
@@ -52,6 +50,8 @@ $(document).ready(function () {
             deck[randomIndex] = temporaryValue;
         }
     };
+
+
     
     $('.dealBtn').on('click', function(evt) {
         evt.preventDefault();
@@ -87,7 +87,7 @@ $(document).ready(function () {
             card = deck[Math.floor(Math.random() * deck.length)]
             deck.splice(card, 1);
             dealerHand.push(card);
-            dealerAceValue();  
+            // dealerAceValue();  
             $('.dealerCard').append("<img src = '" + card.cardImg + "' />");
     };
 
@@ -95,38 +95,80 @@ $(document).ready(function () {
             card = deck[Math.floor(Math.random() * deck.length)]
             deck.splice(card, 1);
             playerHand.push(card);
-            playerAceValue();
+            // playerAceValue();
             $('.playerCard').append("<img src = '" + card.cardImg + "' />");    
     };
 
+    // function dealerAceValue() {
+    //     for (let i = 0; i < dealerHand.length; i++) {
+    //         if (dealerHand[i].value === 1 && dealerTotalScore < 21) {
+    //             return dealerTotalScore -= 10;
+    //         } else if (dealerHand[i].value === 1 && dealerTotalScore > 11) {
+    //             return dealerTotalScore;
+    //         }
+    //     } 
+    // };
+
     function dealerAceValue() {
+        dealerTotalScore = 0;
+        let tempValue = 0;
+        let aceCards = 0;
+
         for (let i = 0; i < dealerHand.length; i++) {
-            if (dealerHand[i].value === 1 && dealerTotalScore + 10 < 11) {
-                return dealerTotalScore += 10;
-            } else if (dealerHand[i].value === 1 && dealerTotalScore > 11) {
-                return dealerTotalScore += 0;
+            tempValue = dealerHand[i].value;
+            if (tempValue === 11) {
+                aceCards++;    
             }
-        } 
+            dealerTotalScore = dealerTotalScore + tempValue;
+            
+            while (dealerTotalScore > 11 && dealerTotalScore < 17 && aceCards > 0 || dealerTotalScore > 21 && aceCards > 0) {
+                dealerTotalScore = dealerTotalScore - 10;
+                aceCards--;
+            }
+        }
+        console.log(dealerTotalScore);
+        return dealerTotalScore;
     };
 
+    // function playerAceValue() {
+    //     for (let i = 0; i < playerHand.length; i++) {
+    //         if (playerHand[i].value === 1 && playerTotalScore < 21) {
+    //             return playerTotalScore -= 10;
+    //         } else if (playerHand[i].value === 1 && playerTotalScore > 11) {
+    //             return playerTotalScore;
+    //         }
+    //     } 
+    // };
+
     function playerAceValue() {
+            playerTotalScore = 0;
+        let tempValue = 0;
+        let aceCards = 0;
+
         for (let i = 0; i < playerHand.length; i++) {
-            if (playerHand[i].value === 1 && playerTotalScore + 10 < 11) {
-                return playerTotalScore += 10;
-            } else if (playerHand[i].value === 1 && playerTotalScore > 11) {
-                return playerTotalScore += 0;
+            tempValue = playerHand[i].value;
+            if (tempValue === 11) {
+                aceCards++;
             }
-        } 
+            playerTotalScore = playerTotalScore + tempValue;
+
+            while (playerTotalScore > 11 && playerTotalScore < 17  && aceCards > 0 || playerTotalScore > 21 && aceCards > 0) {
+                playerTotalScore = playerTotalScore - 10;
+                aceCards--;
+            } 
+        }
+        console.log(playerTotalScore);
+        return playerTotalScore;
     };
 
     function addDealerScore() {
         dealerTotalScore = dealerTotalScore + card.value;    
-        dealerAceValue();
+        // dealerAceValue();
     }
 
     function addPlayerScore() {
         playerTotalScore = playerTotalScore + card.value;
-        playerAceValue();
+        // playerAceValue();
     }
 
     function dealerTotalScoreDisplay() {
@@ -150,16 +192,19 @@ $(document).ready(function () {
             playerCardDealt();
             addPlayerScore();
             playerAceValue();
+            if (playerTotalScore === 21) {
+                $('.popup').text('BLACKJACK!!! YOU WIN!!! Press Deal to start a new game.');
+            }
         }
         // playerTotalScoreDisplay();
     }
 
     function playerHit() {
-            playerCardDealt();
-            addPlayerScore();
-            // playerAceValue();
-            // compareScore();    
-                // $('#scorePly').text(" " + playerTotalScore + " ");
+        playerCardDealt();
+        addPlayerScore();
+        playerAceValue();
+        // compareScore();    
+        // $('#scorePly').text(" " + playerTotalScore + " ");
     };
 
     function openDealerCard() {
@@ -186,19 +231,23 @@ $(document).ready(function () {
         }
     };
 
+    // Player and Dealer Win count
+
+
+
     function compareScore() {
         if (playerTotalScore > 21) {
-            $('.popup').append('<p>YOU ARE BUSTED!!! Better Luck Next Time! Dealer Win<br>Press DEAL to start a new game</p>');
+            $('.popup').text('YOU BUSTED!!! Press Deal to start a new game.');
         } 
         else if (dealerTotalScore > 21  || (playerTotalScore > dealerTotalScore && dealerTotalScore >= 17)) {
-            $('.popup').append('<p>Congratulation! YOU WIN!!!<br>Press DEAL to start a new game</p>');
+            $('.popup').text('Congratulation! YOU WIN!!! Press Deal to start a new game.');
         }
         else if (playerTotalScore < dealerTotalScore) {
-            $('.popup').append('<p>YOU LOST!!! Better Luck Next Time! Dealer Win<br>Press DEAL to start a new game</p>');
+            $('.popup').text('YOU LOST!!! Press Deal to start a new game.');
         }
         else if (playerTotalScore === dealerTotalScore) {
-            $('.popup').append('<p>TIE GAME</p>');
-        } 
+            $('.popup').text('TIE GAME!!! Press Deal to start a new game.');
+        }
     };
 
     function resetGame() {
