@@ -67,6 +67,7 @@ $(document).ready(function () {
         if (playerTotalScore > 21) {
             dealerTotalScoreDisplay();
             playerTotalScoreDisplay();
+            winCount();
         }
     });
 
@@ -74,8 +75,6 @@ $(document).ready(function () {
         evt.preventDefault();
         openDealerCard();
         dealerDraw();
-        dealerTotalScoreDisplay();
-        playerTotalScoreDisplay();
         compareScore();
     });
 
@@ -159,20 +158,18 @@ $(document).ready(function () {
 
     function addDealerScore() {
         dealerTotalScore = dealerTotalScore + card.value;    
-        // dealerAceValue();
     }
 
     function addPlayerScore() {
         playerTotalScore = playerTotalScore + card.value;
-        // playerAceValue();
     }
 
     function dealerTotalScoreDisplay() {
-        $('.dealerScore').append("<span id = 'scoreDlr'> " + dealerTotalScore + "</span>");
+        $('#showDlrScore').text(" " + dealerTotalScore + " ");
     }
 
     function playerTotalScoreDisplay() {
-        $('.playerScore').append("<span id = 'scorePly'> " + playerTotalScore + "</span>");
+        $('#showPlyScore').text(" " + playerTotalScore + " ");
     }
 
     function dealerCard() {
@@ -180,7 +177,7 @@ $(document).ready(function () {
             dealerCardDealt();
             addDealerScore();
             dealerAceValue();
-            // dealerTotalScoreDisplay();
+            dealerTotalScoreDisplay();
     }
 
     function playerCard() {
@@ -192,7 +189,7 @@ $(document).ready(function () {
                 $('.popup').text('BLACKJACK!!! YOU WIN!!! Press Deal to start a new game.');
             }
         }
-        // playerTotalScoreDisplay();
+        playerTotalScoreDisplay();
     }
 
     function playerHit() {
@@ -200,7 +197,7 @@ $(document).ready(function () {
         addPlayerScore();
         playerAceValue();
         // compareScore();    
-        // $('#scorePly').text(" " + playerTotalScore + " ");
+        $('#showPlyScore').text(" " + playerTotalScore + " ");
     };
 
     function openDealerCard() {
@@ -211,7 +208,7 @@ $(document).ready(function () {
             dealerAceValue();
             winCount();
             $('img:first').replaceWith("<img src = '" + card.cardImg + "' />");
-            // $('#scoreDlr').text(" " + dealerTotalScore + " ");
+            $('#showDlrScore').text(" " + dealerTotalScore + " ");
     };
 
     function dealerDraw() {
@@ -220,8 +217,8 @@ $(document).ready(function () {
             if (dealerTotalScore < 17) {
                 dealerCardDealt();
                 addDealerScore();
-                // dealerAceValue();
-                // $('#scoreDlr').text(" " + dealerTotalScore + " ");
+                dealerAceValue();
+                $('#showDlrScore').text(" " + dealerTotalScore + " ");
             } else if (dealerTotalScore >= 17) {
                 return dealerTotalScore;
             }
@@ -229,16 +226,18 @@ $(document).ready(function () {
     };
 
     // Player and Dealer Win count
-    function winCount() {
         let dealerCount = 0;
         let playerCount = 0;
+    function winCount() {
         if (dealerTotalScore > playerTotalScore || playerTotalScore > 21) {
             dealerCount++;
             $('#dealerWin').text(" "+ dealerCount +" ");
-        }
-        if (playerTotalScore > dealerTotalScore || dealerTotalScore > 21) {
+        } else if (playerTotalScore > dealerTotalScore || dealerTotalScore > 21) {
             playerCount++;
             $('#playerWin').text(" "+ playerCount +" ");
+        } else if (playerTotalScore === dealerTotalScore) {
+            dealerCount += 0;
+            playerCount += 0;
         }
         console.log(dealerCount);
         console.log(playerCount);
@@ -270,8 +269,8 @@ $(document).ready(function () {
         playerTotalScore = 0;
         dealerHand = [];
         playerHand = [];
-        $('span #scoreDlr').empty();
-        $('span #scorePly').empty();
+        $('#showDlrScore').empty();
+        $('#showPlyScore').empty();
         $('.popup').empty();
     };
 

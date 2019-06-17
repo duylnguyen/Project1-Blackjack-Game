@@ -92,9 +92,13 @@ button {
     cursor: pointer;
 }
 
-span {
+#playerWin, #dealerWin {
     color: green;
     height: 20px;
+}
+
+span {
+    color: azure;
 }
 
 
