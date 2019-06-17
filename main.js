@@ -51,6 +51,7 @@ $(document).ready(function () {
         }
     };
     
+    // All eventListener buttons
     $('.dealBtn').on('click', function(evt) {
         evt.preventDefault();
         resetGame();
@@ -78,8 +79,8 @@ $(document).ready(function () {
         compareScore();
     });
 
+    // Deal cards from array
     let card;                
-
     function dealerCardDealt() {
             card = deck[Math.floor(Math.random() * deck.length)]
             deck.splice(card, 1);
@@ -106,6 +107,7 @@ $(document).ready(function () {
     //     } 
     // };
 
+    // Ace value conditions
     function dealerAceValue() {
         dealerTotalScore = 0;
         let tempValue = 0;
@@ -136,6 +138,7 @@ $(document).ready(function () {
     //     } 
     // };
 
+    // Ace value conditions
     function playerAceValue() {
             playerTotalScore = 0;
         let tempValue = 0;
@@ -156,6 +159,7 @@ $(document).ready(function () {
         return playerTotalScore;
     };
 
+    // Function to add score and display scores
     function addDealerScore() {
         dealerTotalScore = dealerTotalScore + card.value;    
     }
@@ -172,6 +176,7 @@ $(document).ready(function () {
         $('#showPlyScore').text(" " + playerTotalScore + " ");
     }
 
+    // Deal first 2 cards to Dealer and Player
     function dealerCard() {
         $('.dealerCard').append("<img src = 'images/blue_back.jpg' />");
             dealerCardDealt();
@@ -192,14 +197,15 @@ $(document).ready(function () {
         playerTotalScoreDisplay();
     }
 
+    // Hit cards for Player
     function playerHit() {
         playerCardDealt();
         addPlayerScore();
-        playerAceValue();
-        // compareScore();    
+        playerAceValue();    
         $('#showPlyScore').text(" " + playerTotalScore + " ");
     };
 
+    // Open face down card for Dealer
     function openDealerCard() {
         card = deck[Math.floor(Math.random() * deck.length)]
             deck.splice(card, 1);
@@ -211,6 +217,7 @@ $(document).ready(function () {
             $('#showDlrScore').text(" " + dealerTotalScore + " ");
     };
 
+    // Draw cards for Dealer to complete game
     function dealerDraw() {
         for (let i = 0; i < 6; i++) {
             
@@ -239,11 +246,9 @@ $(document).ready(function () {
             dealerCount += 0;
             playerCount += 0;
         }
-        console.log(dealerCount);
-        console.log(playerCount);
     };
         
-
+    // Compare score for winning conditions
     function compareScore() {
         if (playerTotalScore > 21) {
             $('.popup').text('YOU BUSTED!!! Press Deal to start a new game.');
@@ -259,6 +264,7 @@ $(document).ready(function () {
         }
     };
 
+    // Reset the game
     function resetGame() {
         $('.dealerCard').empty();
         $('.playerCard').empty();
