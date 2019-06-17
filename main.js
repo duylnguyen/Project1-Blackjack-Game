@@ -59,6 +59,11 @@ $(document).ready(function () {
         shuffleDeck();
         dealerCard();
         playerCard();
+        if (playerTotalScore === 21) {
+            $('.popup').text('BLACKJACK!!! YOU WIN!!! Press Deal to start a new game.');
+            playerCount++;
+            $('#playerWin').text(" "+ playerCount +" ");
+        }
     });
 
     $('.hitBtn').on('click', function(evt) {
@@ -70,6 +75,7 @@ $(document).ready(function () {
             playerTotalScoreDisplay();
             winCount();
         }
+        
     });
 
     $('.standBtn').on('click', function(evt) {
@@ -77,28 +83,26 @@ $(document).ready(function () {
         openDealerCard();
         dealerDraw();
         compareScore();
+        winCount();
     });
-
-    // Deal cards from array
-    let card;                
+    
+    // Deal cards from array                
     function dealerCardDealt() {
-            card = deck[Math.floor(Math.random() * deck.length)]
-            deck.shift(card);
-            dealerHand.push(card);
-            console.log(deck);
-            console.log(dealerHand);
+            // card = deck[Math.floor(Math.random() * deck.length)]
+        let cardIndex = Math.floor(Math.random() * deck.length)
+            currentCard = deck.splice(cardIndex, 1)[0];
+            console.log(currentCard)
+            dealerHand.push(currentCard);
             // dealerAceValue();  
-            $('.dealerCard').append("<img src = '" + card.cardImg + "' />");
+            $('.dealerCard').append("<img src = '" + currentCard.cardImg + "' />");
     };
 
     function playerCardDealt() {
-            card = deck[Math.floor(Math.random() * deck.length)]
-            deck.shift(card);
-            playerHand.push(card);
-            console.log(deck);
-            console.log(playerHand);
+        let cardIndex = Math.floor(Math.random() * deck.length)
+            currentCard = deck.splice(cardIndex, 1)[0];
+            playerHand.push(currentCard);
             // playerAceValue();
-            $('.playerCard').append("<img src = '" + card.cardImg + "' />");    
+            $('.playerCard').append("<img src = '" + currentCard.cardImg + "' />");    
     };
 
     // function dealerAceValue() {
@@ -158,6 +162,7 @@ $(document).ready(function () {
             while (playerTotalScore > 11 && playerTotalScore < 17  && aceCards > 0 || playerTotalScore > 21 && aceCards > 0) {
                 playerTotalScore = playerTotalScore - 10;
                 aceCards--;
+                // console.log(playerTotalScore);
             } 
         }
         return playerTotalScore;
@@ -165,11 +170,11 @@ $(document).ready(function () {
 
     // Function to add score and display scores
     function addDealerScore() {
-        dealerTotalScore = dealerTotalScore + card.value;    
+        dealerTotalScore = dealerTotalScore + currentCard.value;    
     }
 
     function addPlayerScore() {
-        playerTotalScore = playerTotalScore + card.value;
+        playerTotalScore = playerTotalScore + currentCard.value;
     }
 
     function dealerTotalScoreDisplay() {
@@ -194,10 +199,6 @@ $(document).ready(function () {
             playerCardDealt();
             addPlayerScore();
             playerAceValue();
-            if (playerTotalScore === 21) {
-                $('.popup').text('BLACKJACK!!! YOU WIN!!! Press Deal to start a new game.');
-                playerCount++;
-            }
         }
         playerTotalScoreDisplay();
     };
@@ -213,11 +214,10 @@ $(document).ready(function () {
     // Open face down card for Dealer
     function openDealerCard() {
         card = deck[Math.floor(Math.random() * deck.length)]
-            deck.splice(card, 1);
+            deck.shift(card);
             dealerHand.push(card);
             addDealerScore()
             dealerAceValue();
-            winCount();
                 $('img:first').replaceWith("<img src = '" + card.cardImg + "' />");
                 $('#showDlrScore').text(" " + dealerTotalScore + " ");
     };
@@ -241,10 +241,10 @@ $(document).ready(function () {
         let dealerCount = 0;
         let playerCount = 0;
     function winCount() {
-        if (dealerTotalScore > playerTotalScore || playerTotalScore > 21) {
+        if (dealerTotalScore > playerTotalScore && dealerTotalScore <= 21 || playerTotalScore > 21) {
             dealerCount++;
             $('#dealerWin').text(" "+ dealerCount +" ");
-        } else if (playerTotalScore > dealerTotalScore || dealerTotalScore > 21) {
+        } else if (playerTotalScore > dealerTotalScore && playerTotalScore <= 21 || dealerTotalScore > 21) {
             playerCount++;
             $('#playerWin').text(" "+ playerCount +" ");
         } else if (playerTotalScore === dealerTotalScore) {
