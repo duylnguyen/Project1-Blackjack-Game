@@ -64,6 +64,7 @@ $(document).ready(function () {
             playerCount++;
             $('#playerWin').text(" "+ playerCount +" ");
         }
+        $('.dealBtn').attr("disable", true);
     });
 
     $('.hitBtn').on('click', function(evt) {
@@ -74,7 +75,10 @@ $(document).ready(function () {
             dealerTotalScoreDisplay();
             playerTotalScoreDisplay();
             winCount();
+            $('.hitBtn').attr("disable", true);
+            $('.standBtn').attr("disable", true);
         } 
+
     });
 
     $('.standBtn').on('click', function(evt) {
@@ -83,16 +87,14 @@ $(document).ready(function () {
         dealerDraw();
         compareScore();
         winCount();
+        $('.dealBtn').attr("disable", false);
     });
     
     // Deal cards from array                
     function dealerCardDealt() {
-            // card = deck[Math.floor(Math.random() * deck.length)]
         let cardIndex = Math.floor(Math.random() * deck.length)
             currentCard = deck.splice(cardIndex, 1)[0];
-            console.log(currentCard)
-            dealerHand.push(currentCard);
-            // dealerAceValue();  
+            dealerHand.push(currentCard); 
             $('.dealerCard').append("<img src = '" + currentCard.cardImg + "' />");
     };
 
@@ -100,7 +102,6 @@ $(document).ready(function () {
         let cardIndex = Math.floor(Math.random() * deck.length)
             currentCard = deck.splice(cardIndex, 1)[0];
             playerHand.push(currentCard);
-            // playerAceValue();
             $('.playerCard').append("<img src = '" + currentCard.cardImg + "' />");    
     };
 
@@ -206,6 +207,7 @@ $(document).ready(function () {
     function playerHit() {
         playerCardDealt();
         addPlayerScore();
+        // Chad guide to solve the ace value issue
         if (playerTotalScore > 21) {
             playerAceValue();
         }    
@@ -230,7 +232,10 @@ $(document).ready(function () {
             if (dealerTotalScore < 17) {
                 dealerCardDealt();
                 addDealerScore();
-                dealerAceValue();
+                // Chad guide to solve ace value issue
+                if (dealerTotalScore > 21) {
+                    dealerAceValue();
+                }
                 $('#showDlrScore').text(" " + dealerTotalScore + " ");
             } else if (dealerTotalScore >= 17) {
                 return dealerTotalScore;
@@ -270,6 +275,7 @@ $(document).ready(function () {
         }
     };
 
+    // function
     // Reset the game
     function resetGame() {
         $('.dealerCard').empty();
@@ -285,6 +291,4 @@ $(document).ready(function () {
         $('#showPlyScore').empty();
         $('.popup').empty();
     };
-
-
 });
