@@ -69,13 +69,12 @@ $(document).ready(function () {
     $('.hitBtn').on('click', function(evt) {
         evt.preventDefault();
         playerHit();
-        compareScore();
         if (playerTotalScore > 21) {
+            compareScore();
             dealerTotalScoreDisplay();
             playerTotalScoreDisplay();
             winCount();
-        }
-        
+        } 
     });
 
     $('.standBtn').on('click', function(evt) {
@@ -128,7 +127,7 @@ $(document).ready(function () {
             }
             dealerTotalScore = dealerTotalScore + tempValue;
             // Decide if the Ace value is 1 or 11
-            while (dealerTotalScore > 11 && dealerTotalScore < 17 && aceCards > 0 || dealerTotalScore > 21 && aceCards > 0) {
+            while (dealerTotalScore > 21 && aceCards > 0) {
                 dealerTotalScore = dealerTotalScore - 10;
                 aceCards--;
             }
@@ -159,7 +158,7 @@ $(document).ready(function () {
             }
             playerTotalScore = playerTotalScore + tempValue;
             // Decide if the Ace value is 1 or 11
-            while (playerTotalScore > 11 && playerTotalScore < 17  && aceCards > 0 || playerTotalScore > 21 && aceCards > 0) {
+            while (playerTotalScore > 21 && aceCards > 0) {
                 playerTotalScore = playerTotalScore - 10;
                 aceCards--;
                 // console.log(playerTotalScore);
@@ -207,7 +206,9 @@ $(document).ready(function () {
     function playerHit() {
         playerCardDealt();
         addPlayerScore();
-        playerAceValue();    
+        if (playerTotalScore > 21) {
+            playerAceValue();
+        }    
         $('#showPlyScore').text(" " + playerTotalScore + " ");
     };
 
