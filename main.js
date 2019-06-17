@@ -83,16 +83,20 @@ $(document).ready(function () {
     let card;                
     function dealerCardDealt() {
             card = deck[Math.floor(Math.random() * deck.length)]
-            deck.splice(card, 1);
+            deck.shift(card);
             dealerHand.push(card);
+            console.log(deck);
+            console.log(dealerHand);
             // dealerAceValue();  
             $('.dealerCard').append("<img src = '" + card.cardImg + "' />");
     };
 
     function playerCardDealt() {
             card = deck[Math.floor(Math.random() * deck.length)]
-            deck.splice(card, 1);
+            deck.shift(card);
             playerHand.push(card);
+            console.log(deck);
+            console.log(playerHand);
             // playerAceValue();
             $('.playerCard').append("<img src = '" + card.cardImg + "' />");    
     };
@@ -119,7 +123,7 @@ $(document).ready(function () {
                 aceCards++;    
             }
             dealerTotalScore = dealerTotalScore + tempValue;
-            
+            // Decide if the Ace value is 1 or 11
             while (dealerTotalScore > 11 && dealerTotalScore < 17 && aceCards > 0 || dealerTotalScore > 21 && aceCards > 0) {
                 dealerTotalScore = dealerTotalScore - 10;
                 aceCards--;
@@ -150,7 +154,7 @@ $(document).ready(function () {
                 aceCards++;
             }
             playerTotalScore = playerTotalScore + tempValue;
-
+            // Decide if the Ace value is 1 or 11
             while (playerTotalScore > 11 && playerTotalScore < 17  && aceCards > 0 || playerTotalScore > 21 && aceCards > 0) {
                 playerTotalScore = playerTotalScore - 10;
                 aceCards--;
@@ -170,11 +174,11 @@ $(document).ready(function () {
 
     function dealerTotalScoreDisplay() {
         $('#showDlrScore').text(" " + dealerTotalScore + " ");
-    }
+    };
 
     function playerTotalScoreDisplay() {
         $('#showPlyScore').text(" " + playerTotalScore + " ");
-    }
+    };
 
     // Deal first 2 cards to Dealer and Player
     function dealerCard() {
@@ -183,7 +187,7 @@ $(document).ready(function () {
             addDealerScore();
             dealerAceValue();
             dealerTotalScoreDisplay();
-    }
+    };
 
     function playerCard() {
         for (let i = 0; i < 2; i++) {
@@ -192,10 +196,11 @@ $(document).ready(function () {
             playerAceValue();
             if (playerTotalScore === 21) {
                 $('.popup').text('BLACKJACK!!! YOU WIN!!! Press Deal to start a new game.');
+                playerCount++;
             }
         }
         playerTotalScoreDisplay();
-    }
+    };
 
     // Hit cards for Player
     function playerHit() {
@@ -213,8 +218,8 @@ $(document).ready(function () {
             addDealerScore()
             dealerAceValue();
             winCount();
-            $('img:first').replaceWith("<img src = '" + card.cardImg + "' />");
-            $('#showDlrScore').text(" " + dealerTotalScore + " ");
+                $('img:first').replaceWith("<img src = '" + card.cardImg + "' />");
+                $('#showDlrScore').text(" " + dealerTotalScore + " ");
     };
 
     // Draw cards for Dealer to complete game
@@ -245,7 +250,7 @@ $(document).ready(function () {
         } else if (playerTotalScore === dealerTotalScore) {
             dealerCount += 0;
             playerCount += 0;
-        }
+        } 
     };
         
     // Compare score for winning conditions
