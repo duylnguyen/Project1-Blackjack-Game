@@ -50,8 +50,6 @@ $(document).ready(function () {
             deck[randomIndex] = temporaryValue;
         }
     };
-
-
     
     $('.dealBtn').on('click', function(evt) {
         evt.preventDefault();
@@ -126,7 +124,6 @@ $(document).ready(function () {
                 aceCards--;
             }
         }
-        console.log(dealerTotalScore);
         return dealerTotalScore;
     };
 
@@ -157,7 +154,6 @@ $(document).ready(function () {
                 aceCards--;
             } 
         }
-        console.log(playerTotalScore);
         return playerTotalScore;
     };
 
@@ -213,12 +209,13 @@ $(document).ready(function () {
             dealerHand.push(card);
             addDealerScore()
             dealerAceValue();
+            winCount();
             $('img:first').replaceWith("<img src = '" + card.cardImg + "' />");
             // $('#scoreDlr').text(" " + dealerTotalScore + " ");
     };
 
     function dealerDraw() {
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < 6; i++) {
             
             if (dealerTotalScore < 17) {
                 dealerCardDealt();
@@ -232,8 +229,21 @@ $(document).ready(function () {
     };
 
     // Player and Dealer Win count
-
-
+    function winCount() {
+        let dealerCount = 0;
+        let playerCount = 0;
+        if (dealerTotalScore > playerTotalScore || playerTotalScore > 21) {
+            dealerCount++;
+            $('#dealerWin').text(" "+ dealerCount +" ");
+        }
+        if (playerTotalScore > dealerTotalScore || dealerTotalScore > 21) {
+            playerCount++;
+            $('#playerWin').text(" "+ playerCount +" ");
+        }
+        console.log(dealerCount);
+        console.log(playerCount);
+    };
+        
 
     function compareScore() {
         if (playerTotalScore > 21) {
