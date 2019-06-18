@@ -82,7 +82,6 @@ $(document).ready(function () {
                 $('.standBtn').attr("disabled", true);
                 $('.dealBtn').attr("disabled", false);
         } 
-        
     });
 
     $('.standBtn').on('click', function(evt) {
@@ -111,16 +110,6 @@ $(document).ready(function () {
             $('.playerCard').append("<img src = '" + currentCard.cardImg + "' />");    
     };
 
-    // function dealerAceValue() {
-    //     for (let i = 0; i < dealerHand.length; i++) {
-    //         if (dealerHand[i].value === 1 && dealerTotalScore < 21) {
-    //             return dealerTotalScore -= 10;
-    //         } else if (dealerHand[i].value === 1 && dealerTotalScore > 11) {
-    //             return dealerTotalScore;
-    //         }
-    //     } 
-    // };
-
     // Ace value conditions
     function dealerAceValue() {
         dealerTotalScore = 0;
@@ -142,16 +131,6 @@ $(document).ready(function () {
         return dealerTotalScore;
     };
 
-    // function playerAceValue() {
-    //     for (let i = 0; i < playerHand.length; i++) {
-    //         if (playerHand[i].value === 1 && playerTotalScore < 21) {
-    //             return playerTotalScore -= 10;
-    //         } else if (playerHand[i].value === 1 && playerTotalScore > 11) {
-    //             return playerTotalScore;
-    //         }
-    //     } 
-    // };
-
     // Ace value conditions
     function playerAceValue() {
             playerTotalScore = 0;
@@ -168,7 +147,6 @@ $(document).ready(function () {
             while (playerTotalScore > 21 && aceCards > 0) {
                 playerTotalScore = playerTotalScore - 10;
                 aceCards--;
-                // console.log(playerTotalScore);
             } 
         }
         return playerTotalScore;
@@ -177,11 +155,11 @@ $(document).ready(function () {
     // Function to add score and display scores
     function addDealerScore() {
         dealerTotalScore = dealerTotalScore + currentCard.value;    
-    }
+    };
 
     function addPlayerScore() {
         playerTotalScore = playerTotalScore + currentCard.value;
-    }
+    };
 
     function dealerTotalScoreDisplay() {
         $('#showDlrScore').text(" " + dealerTotalScore + " ");
@@ -192,6 +170,7 @@ $(document).ready(function () {
     };
 
     // Deal first 2 cards to Dealer and Player
+    // USing the back card image to set default for dealer first card
     function dealerCard() {
         $('.dealerCard').append("<img src = 'images/blue_back.jpg' />");
             dealerCardDealt();
@@ -220,15 +199,15 @@ $(document).ready(function () {
         $('#showPlyScore').text(" " + playerTotalScore + " ");
     };
 
-    // Open face down card for Dealer
+    // Replace dealer card for the back card image 
     function openDealerCard() {
-        card = deck[Math.floor(Math.random() * deck.length)]
-            deck.shift(card);
-            dealerHand.push(card);
-            addDealerScore()
-            dealerAceValue();
-                $('img:first').replaceWith("<img src = '" + card.cardImg + "' />");
-                $('#showDlrScore').text(" " + dealerTotalScore + " ");
+        let cardIndex = Math.floor(Math.random() * deck.length)
+            currentCard = deck.splice(cardIndex, 1)[0];
+            dealerHand.push(currentCard);
+                addDealerScore()
+                dealerAceValue();
+                    $('img:first').replaceWith("<img src = '" + currentCard.cardImg + "' />");
+                    $('#showDlrScore').text(" " + dealerTotalScore + " ");
     };
 
     // Draw cards for Dealer to complete game
@@ -250,8 +229,9 @@ $(document).ready(function () {
     };
 
     // Player and Dealer Win count
-        let dealerCount = 0;
-        let playerCount = 0;
+    let dealerCount = 0;
+    let playerCount = 0;
+
     function winCount() {
         if (dealerTotalScore > playerTotalScore && dealerTotalScore <= 21 || playerTotalScore > 21) {
             dealerCount++;
@@ -281,7 +261,6 @@ $(document).ready(function () {
         }
     };
 
-    // function
     // Reset the game
     function resetGame() {
         $('.dealerCard').empty();
