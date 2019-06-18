@@ -59,12 +59,14 @@ $(document).ready(function () {
         shuffleDeck();
         dealerCard();
         playerCard();
-        if (playerTotalScore === 21) {
-            $('.popup').text('BLACKJACK!!! YOU WIN!!! Press Deal to start a new game.');
-            playerCount++;
-            $('#playerWin').text(" "+ playerCount +" ");
-        }
-        $('.dealBtn').attr("disable", true);
+            if (playerTotalScore === 21) {
+                $('.popup').text('BLACKJACK!!! YOU WIN!!! Press Deal to start a new game.');
+                playerCount++;
+                $('#playerWin').text(" "+ playerCount +" ");
+            }
+            $(this).attr("disabled", true);
+            $('.standBtn').attr("disabled", false);
+            $('.hitBtn').attr("disabled", false);
     });
 
     $('.hitBtn').on('click', function(evt) {
@@ -75,10 +77,11 @@ $(document).ready(function () {
             dealerTotalScoreDisplay();
             playerTotalScoreDisplay();
             winCount();
-            $('.hitBtn').attr("disable", true);
-            $('.standBtn').attr("disable", true);
+                $('.hitBtn').attr("disabled", true);
+                $('.standBtn').attr("disabled", true);
+                $('.dealBtn').attr("disabled", false);
         } 
-
+        
     });
 
     $('.standBtn').on('click', function(evt) {
@@ -87,7 +90,7 @@ $(document).ready(function () {
         dealerDraw();
         compareScore();
         winCount();
-        $('.dealBtn').attr("disable", false);
+            $('.dealBtn').attr("disabled", false);
     });
     
     // Deal cards from array                
@@ -265,7 +268,7 @@ $(document).ready(function () {
             $('.popup').text('YOU BUSTED!!! Press Deal to start a new game.');
         } 
         else if (dealerTotalScore > 21  || (playerTotalScore > dealerTotalScore && dealerTotalScore >= 17)) {
-            $('.popup').text('Congratulation! YOU WIN!!! Press Deal to start a new game.');
+            $('.popup').text('Congratulations! YOU WIN!!! Press Deal to start a new game.');
         }
         else if (playerTotalScore < dealerTotalScore) {
             $('.popup').text('YOU LOST!!! Press Deal to start a new game.');
