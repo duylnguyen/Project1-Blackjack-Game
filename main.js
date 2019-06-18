@@ -58,6 +58,7 @@ $(document).ready(function () {
         newDeck();
         shuffleDeck();
         dealerCard();
+            $('.dealerCard').addClass('animated slightInRight');
         playerCard();
             if (playerTotalScore === 21) {
                 $('.popup').text('BLACKJACK!!! YOU WIN!!! Press Deal to start a new game.');
@@ -91,6 +92,8 @@ $(document).ready(function () {
         compareScore();
         winCount();
             $('.dealBtn').attr("disabled", false);
+            $('.hitBtn').attr("disabled", true);
+            $('.standBtn').attr("disabled", true);
     });
     
     // Deal cards from array                
